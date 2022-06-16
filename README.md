@@ -8,7 +8,8 @@
 ## codeplus 문제집
 https://www.acmicpc.net/workbook/codeplus/1
 
-## Project 내에 본인 이름 폴더 만들고 날짜로 해당 문제 풀어서 cpp 파일 업로드
+## 매주 본인 이름으로 된 폴더에 문제 푼 cpp 파일 커밋
+- 파일 이름은 날짜.cpp
 
 ## 22.06.23
 <a href=https://www.acmicpc.net/problem/1790> 수 이어 쓰기 2 </a>
