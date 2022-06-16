@@ -13,6 +13,24 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Hyehyeon.Kim">
+      <UniqueIdentifier>{38a28d80-673e-4230-9e4e-9eeb8add97a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Wonik.Heo">
+      <UniqueIdentifier>{c85f304d-0ba5-4374-aa92-3a82e3d428de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Aeri.Yoon">
+      <UniqueIdentifier>{6d9a99c5-2518-48a2-89d1-8d99ac11b5e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Jihun.Kim">
+      <UniqueIdentifier>{435b7e68-7506-44a4-b1b1-1490ce0177de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Woori.Han">
+      <UniqueIdentifier>{c57421fa-decd-40ac-a81c-4d0c1597a17b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Yujin.Shin">
+      <UniqueIdentifier>{5b75b890-9f4a-4b77-8455-b47b705c9548}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WithLaptop.cpp">
