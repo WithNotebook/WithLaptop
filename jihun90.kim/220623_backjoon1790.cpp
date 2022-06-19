@@ -7,23 +7,6 @@ using namespace std;
 int N;
 int k;
 
-int getCharCount(int number)
-{
-    int count=0;
-    
-    int digit = to_string(number).length();
-    int tempCalc = 0;
-    for(int i=0; i<digit-1; i++)
-    {
-        tempCalc = ((i+1) * (9 * pow(10, i)));
-        count = count + tempCalc;
-    }
-    tempCalc = ((number - (pow(10, digit-1)-1)) * (digit));
-    count = count +tempCalc;
-
-    return count;
-}
-
 int main()
 {
     scanf("%d",&N);
