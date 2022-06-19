@@ -6,7 +6,6 @@ using namespace std;
 
 int N;
 int k;
-char result;
 
 int getCharCount(int number)
 {
@@ -30,51 +29,41 @@ int main()
     scanf("%d",&N);
     scanf("%d",&k);
 
-    int count;
-    bool flag = true;
-
-    count=getCharCount(N);
-    int i =0;
-    int number = 0;
-    int prevNumber = 0;
-    if (count > k)
-    {    
-        number = 0;
-        while(flag)
-        { 
-            prevNumber = number;
-            number = number + 9 * pow(10, i);            
-            count = getCharCount(number);
-        
-            if (count > k)
-            {
-                flag=false;
-            }
-            else
-            {
-                i++;
-            }
-        }
-        int prevCount = getCharCount(prevNumber);
-        int temp = (k - prevCount) / (i+1) + 1;
-        int temp2 = (k - prevCount) % (i+1);
-        
-        int resultNumber = prevNumber + temp;
-        result = to_string(resultNumber)[temp2-1];
-            
-        printf("%c\n", result);
-    }
-    else if(count == k)
+    int count = 0;
+    int const KOO = 9;
+    int digit = 0;
+ 
+    int resultNum = 0;
+    while(true)
     {
-        result = to_string(N).back();
-        printf("%c\n", result);
+       if((count + (digit + 1) * (pow(10, digit) * KOO)) > k)
+       {
+            break;
+       }
+       count = count + (digit + 1) * (pow(10, digit) * KOO);
+       resultNum = resultNum + (pow(10, digit) * KOO);  
+       digit++; 
+    }
+   
+    int rem = digit-1;
+    if((k-count) > 0)
+    {
+        digit++;
+
+        rem = (k - (count + 1)) % digit;
+        int temp = (k-(count + 1)) / digit + 1;
+
+        resultNum = resultNum + temp;
+    }
+
+    if(resultNum > N)
+    {
+        printf("-1");
     }
     else
     {
-        printf("-1\n");
+        char result = to_string(resultNum)[rem];
+        printf("%c", result);
     }
-
-
-
     return 0;
 }   
