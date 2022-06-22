@@ -3,31 +3,27 @@
 
 #include <iostream>
 #include <math.h>
+#include <string>
 using namespace std;
 
 int main()
 {
-    int N, K;
+    long long N, K;
     cin >> N >> K;
-    int remainValue = K;
+    long long remainValue = K;
 
     for (int i = 1; i <= 10; i++)
     {
-        int value = (pow(10, i) - pow(10, i - 1)) * i;
-        
-        if (remainValue == value)
+        long long value = (pow(10, i) - pow(10, i - 1)) * i;
+       
+        if (remainValue <= value)
         {
-            cout << pow(10, i) - 1 << endl;
-            break;
-        }
-        else if (remainValue < value)
-        {
-            int mok = remainValue / i;
-            int nam = remainValue % i;
+            long long mok = remainValue / i;
+            long long nam = remainValue % i;
 
             if (nam > 0)
             {
-                int theNumber = pow(10, i - 1) + mok;
+                long long theNumber = pow(10, i - 1) + mok;
 
                 if (theNumber > N)
                 {
@@ -35,12 +31,7 @@ int main()
                 }
                 else
                 {
-                    int digit = 0;
-                    for (int j = 0; j < nam; j++)
-                    {
-                        digit = theNumber / 10;
-                        theNumber %= 10;
-                    }
+                    char digit = to_string(theNumber).at(nam - 1);
                     cout << digit << endl;
                 }
                 break;
@@ -54,7 +45,7 @@ int main()
                 }
                 else
                 {
-                    short digit = theNumber % 10;
+                    int digit = theNumber % 10;
                     cout << digit << endl;
                 }
                 break;
