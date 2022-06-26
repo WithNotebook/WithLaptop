@@ -1,74 +1,14 @@
 #include <iostream>
-#include <set>
 #include <vector>
-#include <map>
-#include <string>
 #include <cmath>
+#include <queue>
 
 using namespace std;
 
 struct road {
-    int start;
     int end;
     int time;
-
-    bool operator < (const road& other) const {
-        if (start < other.start) {
-            return true;
-        }
-        else if (start > other.start) {
-            return false;
-        }
-
-        if (end < other.end) {
-            return true;
-        }
-        else if (end > other.end) {
-            return false;
-        }
-
-        return (time < other.time);
-    }
 };
-
-vector<road> world[10001];
-vector<road> isVisited;
-set<road> maxRoads;
-
-int startCity, endCity;
-int curMaxTime = -1;
-
-void findMaxMan(int cur, int maxTime) {
-    if (cur == endCity) {
-        if (maxTime > curMaxTime) {
-            maxRoads.clear();
-        }
-
-        if (maxTime >= curMaxTime) {
-            vector<road>::iterator it = isVisited.begin();
-
-            for (it; it != isVisited.end(); it++) {
-                maxRoads.insert(*it);
-            }
-            curMaxTime = maxTime;
-        }
-
-        return;
-    }
-
-    vector<road>::iterator it = world[cur].begin();
-    int result = -1;
-
-    for (it; it != world[cur].end(); it++) {
-        isVisited.push_back(*it);
-        
-        findMaxMan((*it).end, maxTime + (*it).time);
-        
-        isVisited.pop_back();
-    }
-
-    return;
-}
 
 int main()
 {
@@ -77,23 +17,73 @@ int main()
     cout.tie(NULL);       
 
     int N, M;
-    cin >> N >> M;    
+    int startCity, endCity;    
+    vector<road> world[10001];
+    vector<road> reverseWorld[10001];
+    long long maxTimes[10001] = { 0, };
+    queue<int> cityQueue;
 
-    isVisited.reserve(M);
+    cin >> N >> M;    
 
     for (int m = 0; m < M; m++) {
         int start, end, time;
         cin >> start >> end >> time;
 
-        world[start].push_back(road{ start, end, time});
+        world[start].push_back(road{ end, time});
+        reverseWorld[end].push_back(road{ start, time });
     }
     
     cin >> startCity >> endCity;
 
-    findMaxMan(startCity, 0);
+    cityQueue.push(startCity);
 
-    cout << curMaxTime << "\n";
-    cout << maxRoads.size() << "\n";
+    while (!cityQueue.empty()) {
+        int curCity = cityQueue.front();
+        cityQueue.pop();
+
+        vector<road>::iterator it = world[curCity].begin();
+
+        for (it; it != world[curCity].end(); it++) {
+            int nextCity = (*it).end;
+            int curTime = (*it).time;
+
+            if (maxTimes[nextCity] < maxTimes[curCity] + curTime) {
+                maxTimes[nextCity] = maxTimes[curCity] + curTime;
+                cityQueue.push(nextCity);
+            }
+        }
+    }
+
+    cityQueue.push(endCity);
+    int count = 0;
+
+    vector<bool> isVisited(N + 1);
+
+    while (!cityQueue.empty()) {
+        int curCity = cityQueue.front();
+        cityQueue.pop();        
+
+        vector<road>::iterator it = reverseWorld[curCity].begin();
+
+        for (it; it != reverseWorld[curCity].end(); it++) {
+            int nextCity = (*it).end;
+            int curTime = (*it).time;
+
+            if (isVisited[curCity]) {
+                continue;
+            }
+            
+            if (maxTimes[nextCity] + curTime == maxTimes[curCity]) {
+                count++;
+                cityQueue.push(nextCity);
+            }
+        }
+
+        isVisited[curCity] = true;
+    }
+
+    cout << maxTimes[endCity] << "\n";
+    cout << count << "\n";
 
     return 0;
 }
