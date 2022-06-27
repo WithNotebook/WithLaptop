@@ -1,7 +1,7 @@
 #include <iostream>
 #include <cmath>
 
-int main()
+int backjoon1790()
 {
     int N, k;
     long long refArray[9];

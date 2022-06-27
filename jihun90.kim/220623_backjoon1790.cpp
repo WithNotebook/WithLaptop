@@ -7,7 +7,8 @@ using namespace std;
 int N;
 int k;
 
-int main()
+//int main()
+int backjoon1790()
 {
     scanf("%d",&N);
     scanf("%d",&k);
