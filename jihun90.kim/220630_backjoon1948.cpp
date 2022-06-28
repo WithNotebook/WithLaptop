@@ -8,6 +8,8 @@ using namespace std;
 list<int> _result;
 int _cityCount = 0;
 int _start, _end = 0;
+int _resultMax;
+
 struct town
 {
     int adj[10001];
@@ -24,6 +26,7 @@ struct town
 };
 
 town _town[10001];
+int _max[10001];
 
 int main()
 {
@@ -31,10 +34,14 @@ int main()
 
     int cmdCount = 0;
     int inDegree[_cityCount+1];
+    int tempInDegree[_cityCount+1];
+    int tempMax[10001];
 
     for(int i= 1; i<=_cityCount; i++)
     {
         inDegree[i] = 0;
+        tempInDegree[i] = 0;
+        tempMax[i] = 0;
     }
     
     scanf("%d", &cmdCount);
@@ -52,52 +59,35 @@ int main()
     scanf("%d %d", &_start, &_end);
     
     queue<int> q;
+    _max[_start] = 0;
+    
     q.push(_start);
-    _town[q.front()].visible = true;
     while(!q.empty())
     {
         int front = q.front();
         if(inDegree[front] == 0)
         {
-            printf("%d ", front);
-            _result.push_front(front);
             q.pop();
         }
 
         for(int next=1; next<10001; next++)
         {
+            tempMax[next] = max(_town[front].adj[next] + _max[front], tempMax[next]);
             if(_town[front].adj[next] > 0)
             {
                 inDegree[next]--;
                 if(inDegree[next] == 0)
-                {
+                {   
+                    _max[next] = tempMax[next];
                     q.push(next);
                 }
             }
-
-
         }
-        
     }
+    _resultMax = tempMax[_end];
 
-    int maxCount = 0;
-    for(int cur = 0; cur<_result.size(); cur++)
-    {
-        int temp = 0;
-        int index = 0;
-        int front = _result.front();
-        _result.pop_front();
-        for(int next = 0; next<10001; next++)
-        {
-            int nextAdj = _town[next].adj[front];
-            if((nextAdj > 0) && temp < nextAdj)
-            {
-                temp = nextAdj;
-                index = next;
-            }
-        }
-        maxCount += temp;
-    }
+
+    printf("%d\n", _resultMax);
 
     return 0;
 };
