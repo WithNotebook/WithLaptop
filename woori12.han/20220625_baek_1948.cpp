@@ -1,90 +1,78 @@
 ﻿
 #include <iostream>
-#include <cstring>
-#include <algorithm>
 #include <vector>
 #include <queue>
 using namespace std;
 
-int nCity, nRoad;
-int maxDistance;
-
 struct road
 {
 	int dest;
-	int distance;
+	int time;
 
 	road(int d, int dd)
 	{
 		dest = d;
-		distance = dd;
+		time = dd;
 	}
 };
 
-void calcDistance(int start, vector<road>* v, int* distance)
+vector<road>v[10001];
+vector<road>reverseV[10001];
+
+int pathCount = 0;
+int startCity, endCity;
+int nCity, nRoad;
+
+void calcDistance(int* movetime, int* indegree)
 {
-	int* visited = new int[nCity + 1]{ 0, };
 	queue<int> q;
-	int prevDist = 0;
-	q.push(start);
-	visited[start] = 1;
+	q.push(startCity);
 
 	while (!q.empty())
 	{
 		int cur = q.front();
 		q.pop();
-		prevDist = distance[cur];
 
 		for (int i = 0; i < v[cur].size(); i++)
 		{
-			int nextPos = v[cur][i].dest;
-			int newDist = v[cur][i].distance;
+			int nextCity = v[cur][i].dest;
+			int nextTime = v[cur][i].time;
 
-			distance[nextPos] = max(distance[nextPos], prevDist + newDist);
-			maxDistance = max(maxDistance, distance[nextPos]);
-			if (visited[nextPos] == 0)
+			movetime[nextCity] = max(movetime[nextCity], nextTime + movetime[cur]);
+			indegree[nextCity]--;
+
+			if (indegree[nextCity] == 0)
 			{
-				visited[nextPos] = 1;
-				q.push(nextPos);
+				q.push(nextCity);
 			}
 		}
 	}
-}
 
-int calcPathCount(int start, int nCity, vector<road>* v, int* distance, int* distance2)
-{
-	int* visited = new int[nCity + 1] {0, };
-	queue<int> q;
-	int prevDist = 0;
-	int pathCount = 0;
-
-	q.push(start);
-	visited[start] = 1;
-	
+	int* visited = new int[nCity + 1]{ 0, };
+	q.push(endCity);
 	while (!q.empty())
 	{
 		int cur = q.front();
 		q.pop();
-		prevDist = distance[cur];
 
-		for (int i = 0; i < v[cur].size(); i++)
+		for (int i = 0; i < reverseV[cur].size(); i++)
 		{
-			int nextPos = v[cur][i].dest;
-			int newDist = prevDist + v[cur][i].distance;
-			if ((newDist == distance[nextPos]) &&
-				(newDist + distance2[nextPos] == maxDistance))
+			int prevCity = reverseV[cur][i].dest;
+			int prevTime = reverseV[cur][i].time;
+
+			if(movetime[cur] - prevTime == movetime[prevCity])
 			{
 				pathCount++;
-				if (visited[nextPos] == 0)
+
+				if (visited[prevCity] == 0)
 				{
-					visited[nextPos] = 1;
-					q.push(nextPos);
+					visited[prevCity] = 1;
+					q.push(prevCity);
 				}
 			}
 		}
 	}
 	delete[] visited;
-	return pathCount;
 }
 
 int main()
@@ -93,32 +81,26 @@ int main()
 	cin.tie(0);
 	cin >> nCity >> nRoad;
 	
-	maxDistance = 0;
-	int* distance = new int[nCity + 1]{ 0, };
-	int* reverseDistance = new int[nCity + 1]{ 0, };
-	vector<road>v[10001];
-	vector<road>reverseV[10001];
-	
+	int* movetime = new int[nCity + 1]{ 0, };
+	int* indegree = new int[nCity + 1]{ 0, };
+
 	for (int i = 0; i < nRoad; i++)
 	{
 		int s, e, d;
 		cin >> s >> e >> d;
 
 		v[s].push_back(road(e, d));
+		indegree[e]++;
 		reverseV[e].push_back(road(s, d));
 	}
 
-	int start, end;
-	cin >> start >> end;
+	cin >> startCity >> endCity;
 
-	calcDistance(end, reverseV, reverseDistance);
-	calcDistance(start, v, distance);
+	calcDistance(movetime, indegree);
+	cout << movetime[endCity] << "\n" << pathCount << "\n";
 
-	int pathCount = calcPathCount(start, nCity, v, distance, reverseDistance);
-	
-	cout << maxDistance << "\n" << pathCount << "\n";
+	delete[] indegree;
+	delete[] movetime;
 
-	delete[] distance;
-	delete[] reverseDistance;
 	return 0;
 }
