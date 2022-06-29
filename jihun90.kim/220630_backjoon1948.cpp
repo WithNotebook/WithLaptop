@@ -2,50 +2,44 @@
     #include<list>
     #include<vector>
     #include<queue>
+    #include<cmath>
 
     using namespace std;
 
     list<int> _result;
     int _cityCount = 0;
-    int _start = 0;
-    int _end = 0;
+    int _startPos = 0;
+    int _endPos = 0;
     int _resultMax;
 
     struct town
     {
-        int adj[10001];
-        bool visible = false;
-        int adjCount = 0;
-
-        town()
-        {
-            for(int i=0; i < 10000; i++)
-            {
-                adj[i] = 0;
-            }
-        }
+        int startPos = 0;
+        int endPos = 0;
+        int adj = 0;
     };
-
-    town _town[10001];
-    town _town_rev[10001];
-    int _max[10001];
-    int _max2[10001];
 
     int main()
     {
         scanf("%d", &_cityCount);
 
         int cmdCount = 0;
+        vector<town> townForward[_cityCount+1];
+        vector<town> townReverse[_cityCount+1];
+        int max1[_cityCount+1];
+        int max2[_cityCount+1];
         int inDegree[_cityCount+1];
-        int tempMax[10001];
-        int tempMax2[10001];
+        int tempMax[_cityCount+1];
+        int tempMax2[_cityCount+1];
         int outDegree[_cityCount +1];
 
-        for(int i= 1; i<=_cityCount; i++)
+        for(int i= 0; i<=_cityCount; i++)
         {
             inDegree[i] = 0;
-            tempMax[i] = 0;
             outDegree[i]  = 0;
+            max1[i] = 0;
+            max2[i] = 0;
+            tempMax[i] = 0;
             tempMax2[i] = 0;
         }
         
@@ -56,20 +50,25 @@
             int next;
             int adj;
             scanf("%d %d %d", &cur, &next, &adj);
-            _town[cur].adj[next] = adj;
+            town temp;
+            temp.startPos = cur;
+            temp.endPos = next;
+            temp.adj = adj;
+            townForward[cur].push_back(temp);
+            temp.startPos = next;
+            temp.endPos = cur;
+            temp.adj = adj;            
+            townReverse[next].push_back(temp);
             inDegree[next]++;
-            _town[cur].adjCount++;
-
-            _town_rev[next].adj[cur] = adj;
             outDegree[cur]++;
         }
         
-        scanf("%d %d", &_start, &_end);
+        scanf("%d %d", &_startPos, &_endPos);
         
         queue<int> q;
-        _max[_start] = 0;
+        max1[_startPos] = 0;
         
-        q.push(_start);
+        q.push(_startPos);
         while(!q.empty())
         {
             int front = q.front();
@@ -78,24 +77,30 @@
                 q.pop();
             }
 
-            for(int next=1; next<10001; next++)
+            for(int next=0; next<townForward[front].size(); next++)
             {
-                if(_town[front].adj[next] > 0)
+                if(!townForward[front].empty())
                 {
-                    tempMax[next] = max(_town[front].adj[next] + _max[front], tempMax[next]);
-                    inDegree[next]--;
-                    if(inDegree[next] == 0)
-                    {   
-                        _max[next] = tempMax[next];
-                        q.push(next);
+                    town temp = townForward[front].at(next);
+                
+                    if(temp.adj > 0)
+                    {
+                        tempMax[temp.endPos] = max(temp.adj + max1[temp.startPos], tempMax[temp.endPos]);
+
+                        inDegree[temp.endPos]--;
+                        if(inDegree[temp.endPos] == 0)
+                        {   
+                            max1[temp.endPos] = tempMax[temp.endPos];
+                            q.push(temp.endPos);
+                        }
                     }
                 }
             }
         }
-        _resultMax = _max[_end];
+        _resultMax = max1[_endPos];
 
         queue<int> q2;
-        q2.push(_end);
+        q2.push(_endPos);
         queue<pair<int,int>> result;
         while(!q2.empty())
         {
@@ -106,17 +111,21 @@
                 q2.pop();
             }
 
-            for(int next = 0; next < 10001; next++)
-            {
-
-                if(_town_rev[front].adj[next] > 0)
+            for(int next = 0; next < townReverse[front].size(); next++)
+            {   
+                if(!townReverse[front].empty())
                 {
-                    tempMax2[next] = max(_max2[front] + _town_rev[front].adj[next] ,tempMax2[next]);
-                    outDegree[next]--;
-                    if(outDegree[next] == 0)
+                    town temp = townReverse[front].at(next);
+
+                    if(temp.adj > 0)
                     {
-                        _max2[next] = tempMax2[next];
-                        q2.push(next);
+                        tempMax2[temp.endPos] = max(max2[temp.startPos] + temp.adj ,tempMax2[temp.endPos]);
+                        outDegree[temp.endPos]--;
+                        if(outDegree[temp.endPos] == 0)
+                        {
+                            max2[temp.endPos] = tempMax2[temp.endPos];
+                            q2.push(temp.endPos);
+                        }
                     }
                 }
             }
@@ -124,28 +133,32 @@
 
         }
 
-        for(int front = 1; front <= _cityCount; front++)
+        bool visited[_cityCount][_cityCount];
+        fill(&visited[0][0], &visited[_cityCount-1][_cityCount], false);
+        for(int front = 0; front <= _cityCount; front++)
         {
-            for(int next = 1; next<=_cityCount; next++)
+            if(!townReverse[front].empty())
             {
-                if(front == next)
+                for(int next=0; next < townReverse[front].size(); next++)
                 {
-                    continue;
-                }
-
-                if(_town_rev[front].adj[next] > 0)
-                {
-                    if(
-                        (((_max2[front] + _town_rev[front].adj[next]) + _max[next]) == _max[_end] )
-                        )
+                    town temp = townReverse[front].at(next);
+                    
+                    if(temp.adj > 0)
                     {
-                        result.emplace(front, next);
+                        if(
+                              (((max2[temp.startPos] + temp.adj) + max1[temp.endPos]) == max1[_endPos] )
+                              )
+                          {
+                              if(!visited[temp.startPos][temp.endPos])
+                              {
+                                  result.emplace(temp.startPos, temp.endPos);
+                              }
+                          }
                     }
+
                 }
             }
         }
-
-
 
         printf("%d\n", _resultMax);
         int count = result.size();
