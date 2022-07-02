@@ -19,7 +19,8 @@
         int adj = 0;
     };
 
-    int main()
+    //int main()
+    int backjoon1948()
     {
         scanf("%d", &_cityCount);
 
