@@ -129,6 +129,7 @@ void makeTree(node *tree, vector<pair<int, int>> *edgeList)
 
 int main()
 {    
+
     vector<pair<int, int>> edgeList;
     vector<pair<int, int>> solList;
     
@@ -168,6 +169,7 @@ int main()
         int result = LCA(tree, solList[i].first, solList[i].second);
         printf("%d\n", result);
     }
+
     delete[] tree;
 
     return 0;
