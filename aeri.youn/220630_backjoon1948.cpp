@@ -5,8 +5,8 @@
 
 using namespace std;
 
-int n = 0; //(1 â‰¤ n â‰¤ 10,000)
-int m = 0; //(1 â‰¤ m â‰¤ 100,000)
+int n = 0; //(1 ¡Â n ¡Â 10,000)
+int m = 0; //(1 ¡Â m ¡Â 100,000)
 
 struct point
 {
@@ -74,7 +74,7 @@ void bfs(int startpoint, int endpoint)
 	cout << result << endl;
 }
 
-int main()
+int backjoon1948()
 {
 	cin >> n >> m;
 
@@ -88,7 +88,6 @@ int main()
 	cin >> startpoint >> endpoint;
 
 	bfs(startpoint, endpoint);
-	
+
 	return 0;
 }
-
