@@ -1,165 +1,104 @@
-#define _CRT_SECURE_NO_WARNINGS
-#include<stdio.h>
-#include<vector>
-#include<queue>
-#include<cmath>
+    #include<stdio.h>
+    #include<vector>
 
-using namespace std;
-
-
-struct node
-{
-    vector<node*> parents;
-    //    vector<node*> nodes;
-    int cur = 0;
-    int level = 0;
-};
-
-int _nodeCount;
-int _parentsSize;
-
-int LCA(node* tree, int a, int b)
-{
-    int aLevel = tree[a].level;
-    int bLevel = tree[b].level;
-
-    int aCur = tree[a].cur;
-    int bCur = tree[b].cur;
-
-    if (aLevel > bLevel)
+    using namespace std;
+    struct node
     {
-        aCur = tree[a].parents[aLevel - bLevel - 1]->cur;
-    }
-    else if (aLevel < bLevel)
-    {
-        bCur = tree[b].parents[bLevel - aLevel - 1]->cur;
-    }
+        node* parents;
+        int current = 0;
+        int level = 0;
+        bool visible = 0;
+    };
 
-    int index = 0;
-    int prevACur = 0;
-    int prevBCur = 0;
-    bool isRecalc = false;
-    while (tree[aCur].cur != tree[bCur].cur)
+    typedef vector<vector<int>> edge;
+
+    int LCA(node *tree,int a, int b)
     {
-        if (!isRecalc)
+        int aLevel = tree[a].level;
+        int bLevel = tree[b].level;
+        
+        int aCur = tree[a].current;
+        int bCur = tree[b].current;
+
+        if (aLevel > bLevel)
         {
-            isRecalc = true;
-        }
-        prevACur = aCur;
-        prevBCur = bCur;
-
-        if (tree[aCur].parents.size() > pow(2, index))
+            while (aLevel != bLevel)
+            {
+                aCur = tree[aCur].parents->current;
+                aLevel = tree[aCur].level;
+            }
+            
+        } 
+        else if(aLevel < bLevel)
         {
-            aCur = tree[aCur].parents[pow(2, index)]->cur;
-            bCur = tree[bCur].parents[pow(2, index)]->cur;
+            while (aLevel != bLevel)
+            {
+                bCur = tree[bCur].parents->current;
+                bLevel = tree[bCur].level;
+            }
         }
-    }
 
-    index = 0;
-    if (isRecalc)
-    {
-        aCur = prevACur;
-        bCur = prevBCur;
-    }
-
-    while (tree[aCur].cur != tree[bCur].cur)
-    {
-        aCur = tree[aCur].parents[index]->cur;
-        bCur = tree[bCur].parents[index]->cur;
-    }
-
-    return aCur;
-
-}
-
-void makeTree(node* tree, vector<pair<int, int>>* edgeList)
-{
-    queue<int> index;
-    index.push(1);
-    int front = index.front();
-
-
-    while (!index.empty())
-    {
-        front = index.front();
-        for (int i = 0; i < edgeList->size(); i++)
+        while (aCur != bCur)
         {
-            pair<int, int> temp = edgeList->at(i);
-
-            int tempVal = 0;
-            if (tree[front].cur == temp.first)
-            {
-                tempVal = temp.second;
-            }
-            else if (tree[front].cur == temp.second)
-            {
-                tempVal = temp.first;
-            }
-            else
-            {
-                continue;
-            }
-
-            node tempNode;
-
-            tempNode.parents.reserve(_parentsSize + 1);
-            tempNode.cur = tempVal;
-            tempNode.level = tree[front].level + 1;
-            tempNode.parents.push_back(&tree[front]);
-            for (int j = 1; j <= tree[front].parents.size(); j++)
-            {
-                tempNode.parents.push_back(tree[front].parents[j - 1]);
-            }
-
-            tree[tempNode.cur] = tempNode;
-
-            (*edgeList)[i].first = -1; //visited
-            (*edgeList)[i].second = -1;
-
-            index.push(tempNode.cur);
+            aCur = tree[aCur].parents->current;
+            bCur = tree[bCur].parents->current;
         }
-            index.pop();
+
+        return aCur;
     }
-}
 
-int main()
-{
-    vector<pair<int, int>> edgeList;
-    vector<pair<int, int>> solList;
-
-    scanf("%d", &_nodeCount);
-    node* tree = new node[_nodeCount + 1];
-
-    for (int i = 0; i < _nodeCount - 1; i++)
+    void makeTree(node *tree, edge *edgeList, int nodeCount)
     {
-        int a, b;
-        scanf("%d %d", &a, &b);
-        edgeList.emplace_back(a, b);
+        for(int index = 1; index < nodeCount; index++)
+        {
+            for(int nextNum = 0; nextNum < (*edgeList)[index].size(); nextNum++)
+            {
+                int next = (*edgeList)[index][nextNum]; 
+                if(tree[next].visible)
+                {
+                    continue;
+                }
+                tree[next].current = next;
+                tree[next].level= tree[index].level+1;
+                tree[next].parents = &tree[index];
+                tree[next].visible = true;
+            }
+        }
     }
 
-    int solCount;
-    scanf("%d", &solCount);
-    for (int i = 0; i < solCount; i++)
+
+    int main()
     {
-        int a, b;
-        scanf("%d %d", &a, &b);
-        solList.emplace_back(a, b);
+        int nodeCount;
+        scanf("%d", &nodeCount);
+
+        vector<vector<int>> edgeList(nodeCount+1);
+        node *tree = new node[nodeCount+1];
+
+        for(int i = 1; i < nodeCount; i++)
+        {
+            int a, b;
+            scanf("%d %d", &a, &b);
+            edgeList[a].push_back(b);
+            edgeList[b].push_back(a);
+        }
+
+        tree[1].current = 1;
+        tree[1].level = 1;
+        tree[1].visible = true;
+        makeTree(tree, &edgeList, nodeCount);
+
+        int cmdCount;
+        scanf("%d", &cmdCount);
+        for(int i=0; i<cmdCount; i++)
+        {
+            int a,b;
+            scanf("%d %d", &a, &b);
+            printf("%d\n", LCA(tree ,a ,b));
+        }
+
+
+        delete[] tree;
+
+        return 1;
     }
-
-    _parentsSize = _nodeCount + 1;
-
-    int lev = 1;
-    tree[1].level = lev;
-    tree[1].cur = 1;
-    makeTree(tree, &edgeList);
-
-    for (int i = 0; i < solList.size(); i++)
-    {
-        int result = LCA(tree, solList[i].first, solList[i].second);
-        printf("%d\n", result);
-    }
-
-    delete[] tree;
-
-    return 0;
-}
