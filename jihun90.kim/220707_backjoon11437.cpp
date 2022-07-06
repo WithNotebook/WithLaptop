@@ -67,7 +67,7 @@
     }
 
 
-    int main()
+    int backjoon11437()
     {
         int nodeCount;
         scanf("%d", &nodeCount);
