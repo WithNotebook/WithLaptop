@@ -4,28 +4,32 @@
     using namespace std;
     struct node
     {
-        node* parents;
+        int parents;
         int current = 0;
         int level = 0;
-        bool visible = 0;
+        bool visited = 0;
     };
 
+    #define MAX 50001
     typedef vector<vector<int>> edge;
+    
+    vector<vector<int>> _edgeList(MAX);
+    vector<node> _tree(MAX);
 
-    int LCA(node *tree,int a, int b)
+    int LCA(int a, int b)
     {
-        int aLevel = tree[a].level;
-        int bLevel = tree[b].level;
+        int aLevel = _tree[a].level;
+        int bLevel = _tree[b].level;
         
-        int aCur = tree[a].current;
-        int bCur = tree[b].current;
+        int aCur = _tree[a].current;
+        int bCur = _tree[b].current;
 
         if (aLevel > bLevel)
         {
             while (aLevel != bLevel)
             {
-                aCur = tree[aCur].parents->current;
-                aLevel = tree[aCur].level;
+                aCur = _tree[aCur].parents;
+                aLevel = _tree[aCur].level;
             }
             
         } 
@@ -33,60 +37,51 @@
         {
             while (aLevel != bLevel)
             {
-                bCur = tree[bCur].parents->current;
-                bLevel = tree[bCur].level;
+                bCur = _tree[bCur].parents;
+                bLevel = _tree[bCur].level;
             }
         }
 
         while (aCur != bCur)
         {
-            aCur = tree[aCur].parents->current;
-            bCur = tree[bCur].parents->current;
+            aCur = _tree[aCur].parents;
+            bCur = _tree[bCur].parents;
         }
 
         return aCur;
     }
 
-    void makeTree(node *tree, edge *edgeList, int nodeCount)
+    void makeTreeDFS(int cur, int parents)
     {
-        for(int index = 1; index < nodeCount; index++)
+        _tree[cur].current = cur;
+        _tree[cur].parents = parents;
+        _tree[cur].level = _tree[parents].level + 1;
+        _tree[cur].visited = true;
+
+        for(vector<int>::iterator it=_edgeList[cur].begin(); it!= _edgeList[cur].end(); it++)
         {
-            for(int nextNum = 0; nextNum < (*edgeList)[index].size(); nextNum++)
+            int next = (*it); 
+            if(!_tree[next].visited)
             {
-                int next = (*edgeList)[index][nextNum]; 
-                if(tree[next].visible)
-                {
-                    continue;
-                }
-                tree[next].current = next;
-                tree[next].level= tree[index].level+1;
-                tree[next].parents = &tree[index];
-                tree[next].visible = true;
+                makeTreeDFS(next, cur);
             }
         }
     }
 
-
-    int backjoon11437()
+    int main()
     {
         int nodeCount;
         scanf("%d", &nodeCount);
-
-        vector<vector<int>> edgeList(nodeCount+1);
-        node *tree = new node[nodeCount+1];
 
         for(int i = 1; i < nodeCount; i++)
         {
             int a, b;
             scanf("%d %d", &a, &b);
-            edgeList[a].push_back(b);
-            edgeList[b].push_back(a);
+            _edgeList[a].push_back(b);
+            _edgeList[b].push_back(a);
         }
 
-        tree[1].current = 1;
-        tree[1].level = 1;
-        tree[1].visible = true;
-        makeTree(tree, &edgeList, nodeCount);
+        makeTreeDFS(1, 0);
 
         int cmdCount;
         scanf("%d", &cmdCount);
@@ -94,11 +89,7 @@
         {
             int a,b;
             scanf("%d %d", &a, &b);
-            printf("%d\n", LCA(tree ,a ,b));
+            printf("%d\n", LCA(a ,b));
         }
-
-
-        delete[] tree;
-
         return 1;
     }
