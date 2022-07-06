@@ -68,7 +68,7 @@
         }
     }
 
-    int main()
+    int backjoon11437()
     {
         int nodeCount;
         scanf("%d", &nodeCount);
@@ -91,5 +91,5 @@
             scanf("%d %d", &a, &b);
             printf("%d\n", LCA(a ,b));
         }
-        return 1;
+        return 0;
     }
