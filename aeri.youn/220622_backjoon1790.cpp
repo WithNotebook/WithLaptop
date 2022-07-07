@@ -6,15 +6,15 @@
 
 using namespace std;
 
-int N = 0; //(1 â‰¤ N â‰¤ 100,000,000)
-int k = 0; //(1 â‰¤ k â‰¤ 1,000,000,000)
+int N = 0; //(1 ¡Â N ¡Â 100,000,000)
+int k = 0; //(1 ¡Â k ¡Â 1,000,000,000)
 
 vector<long long> list;
 
-int main()
+int backjoon1790()
 {
 	cin >> N;
-	
+
 	int N_bak = N;
 	int N_num = 0;
 	while (N_bak) {
@@ -63,8 +63,8 @@ int main()
 	}
 
 	string s = to_string(c);
-	if (b != 0) 
-	{ 
+	if (b != 0)
+	{
 		b = b - 1;
 	}
 	else
