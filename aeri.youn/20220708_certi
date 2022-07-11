@@ -111,11 +111,15 @@ int main()
 					{
 						continue;
 					}
-					else if 
+					else
+					{
+						(*temp).second = _cost;
+						continue;
+					}
 				}
 			}
 			map[_width].push_back(make_pair(_thick, _cost));
-			//sort(map[_width].begin(), map[_width].end());
+			sort(map[_width].begin(), map[_width].end());
 		}
 		bfs(p_thick, p_width);
 
