@@ -1,0 +1,130 @@
+#include <iostream>
+#include <cstring>
+#include <vector>
+#include <algorithm>
+#include <queue>
+
+using namespace std;
+
+#define MAX 300001
+
+vector<pair<int, int>> map[MAX];
+int backup[MAX];
+
+void bfs(int p_thick, int p_width) //파이프 두께, 파이프 최소 보온 두께
+{
+	int result_cost = 0;
+	int result_depth = 0;
+
+	queue<pair<int, pair<int, int>>> q;
+	q.push(make_pair(p_thick, make_pair(0, 0)));
+
+	while (!q.empty())
+	{
+		auto i = q.front();
+		q.pop();
+
+		for (auto j = map[i.first].begin(); j < map[i.first].end(); j++)
+		{
+			int a = (i.first + (*j).first); // 다음 보온재 두께
+			int b = (i.second.first + (*j).second); // 현재까지의 비용
+			int c = (i.second.second + 1); // 현재까지의 보온재 갯수 
+
+			if (a >= p_width)
+			{
+				if (result_cost == 0)
+				{
+					result_cost = b;
+					result_depth = c;
+				}
+				else if (b < result_cost)
+				{
+					result_cost = b;
+					result_depth = c;
+				}
+				else if (b == result_cost)
+				{
+					if (c < result_depth)
+					{
+						result_cost = b;
+						result_depth = c;
+					}
+				}
+				continue;
+			}
+
+			if ((backup[a] == 0) || (backup[a] > b))
+			{
+				backup[a] = b;
+				q.push(make_pair(a, make_pair(b, c)));
+			}
+		}
+	}
+	printf("%d %d\n", result_cost, result_depth);
+}
+
+#include <string>
+#include <fstream>
+void maketestcase()
+{
+	ofstream fout;
+	fout.open("input_test.txt");
+
+	for (int i = 1; i <= 300000; i++)
+	{
+		string a = to_string(i) + " 1 10\n";
+		fout << a;
+	}
+	fout.close();
+}
+
+int main()
+{
+	//maketestcase();
+	//return 0;
+
+	int t = 0;
+	scanf("%d", &t);
+	
+	for (int testcase = 1; testcase <= t; testcase++)
+	{
+		printf("#%d ", testcase);
+
+		int n, p_thick, p_width = 0;
+		scanf("%d %d %d", &n, &p_thick, &p_width);
+
+		int _width, _thick, _cost = 0;
+		for (int i = 1; i <= n; i++)
+		{
+			scanf("%d %d %d", &_width, &_thick, &_cost);
+
+			auto temp = lower_bound(map[_width].begin(), map[_width].end(), make_pair(_thick, _cost));
+			if (temp != map[_width].end())
+			{
+				if(((*temp).first == _thick) && ((*temp).second == _cost))
+				{
+					continue;
+				}
+				else if ((*temp).first == _thick)
+				{
+					if ((*temp).second <= _cost)
+					{
+						continue;
+					}
+					else if 
+				}
+			}
+			map[_width].push_back(make_pair(_thick, _cost));
+			//sort(map[_width].begin(), map[_width].end());
+		}
+		bfs(p_thick, p_width);
+
+		for (int i = 0; i < MAX; i++)
+		{
+			map[i].clear();
+		}
+		memset(backup, 0, sizeof(backup));
+	}
+	return 0;
+}
+
