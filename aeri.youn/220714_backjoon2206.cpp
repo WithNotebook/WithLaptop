@@ -13,10 +13,10 @@ int backup[N_M_MAX][N_M_MAX][2];
 
 pair<int, int> list[4] = { {-1, 0}, {0, -1}, {0, 1}, {1, 0} };
 
-void bfs(int start, int end)
+void bfs(int start_x, int start_y, int end_x, int end_y)
 {
-	queue<pair<int, int>> q;
-	q.push(make_pair(start, 0));
+	queue<pair<pair<int, int>, int>> q;
+	q.push(make_pair(make_pair(start_x, start_y), 0));
 
 	memset(backup, -1, sizeof(int) * (N_M_MAX * N_M_MAX * 2));
 	backup[0][0][0] = 1;
@@ -26,38 +26,44 @@ void bfs(int start, int end)
 		auto temp = q.front();
 		q.pop();
 
-		for (auto i = map[temp.first].begin(); i < map[temp.first].end(); i++)
+		for (int i = 0; i < 4; i++)
 		{
-			if ((*i).first == end)
+			int x = temp.first.first + list[i].first;
+			int y = temp.first.second + list[i].second;
+
+			if ((x < 0) || (y < 0)) continue;
+			if ((x > end_x) || (y > end_y)) continue;
+
+			if ((x == end_x) && (y == end_y))
 			{
-				printf("%d", backup[temp.first][temp.second] + 1);
+				printf("%d", backup[temp.first.first][temp.first.second][temp.second] + 1);
 				return;
 			}
 
 			int wall = temp.second;
-			if ((*i).second == 1) //º®
+			if (map[x][y] == 1) //º®
 			{
 				if (wall != 1)//º®¾ÆÁ÷¾È»Ñ¼ÌÀ½
 				{
 					wall = 1; //º®»Ñ¼ö±â
-					if (backup[(*i).first][wall] == -1)
+					if (backup[x][y][wall] == -1)
 					{
-						backup[(*i).first][wall] = backup[temp.first][0] + 1;
-						q.push(make_pair((*i).first, wall));
+						backup[x][y][wall] = backup[temp.first.first][temp.first.second][0] + 1;
+						q.push(make_pair(make_pair(x, y), wall));
 					}
 				}
 			}
 			else //º®¾Æ´Ô
 			{
-				if (backup[(*i).first][wall] == -1)
+				if (backup[x][y][wall] == -1)
 				{
-					backup[(*i).first][wall] = backup[temp.first][wall] + 1;
-					q.push(make_pair((*i).first, wall));
+					backup[x][y][wall] = backup[temp.first.first][temp.first.second][wall] + 1;
+					q.push(make_pair(make_pair(x, y), wall));
 				}
 			}
 		}
 	}
-	printf("%d", backup[end][0]);
+	printf("%d", backup[end_x][end_y][0]);
 }
 
 int main()
@@ -73,22 +79,11 @@ int main()
 		for (int j = 0; j < M; j++)
 		{
 			int a = temp[j] - '0';
-			int current = (i * M) + j; //ÇöÀç index
 
-			for (int k = 0; k < 4; k++)
-			{
-				int x = (current / M) + list[k].first;
-				int y = (current % M) + list[k].second;
-
-				if ((x < 0) || (y < 0)) continue;
-				if ((x >= N) || (y >= M)) continue;
-
-				int index = (x * M) + y; //ÁÖº¯ index
-				map[index].push_back(make_pair(current, a));
-			}
+			map[i][j] = a;
 		}
 	}
-	bfs(0, (N * M - 1));
+	bfs(0, 0, (N - 1), (M - 1));
 
 	return 0;
 }
