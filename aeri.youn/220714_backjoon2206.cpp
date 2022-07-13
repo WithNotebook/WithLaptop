@@ -8,18 +8,19 @@ using namespace std;
 const int N_M_MAX = 1000;
 const int MAX = N_M_MAX * N_M_MAX;
 
-int map[N_M_MAX][N_M_MAX];
-int backup[N_M_MAX][N_M_MAX][2];
-
+int map[MAX];
 pair<int, int> list[4] = { {-1, 0}, {0, -1}, {0, 1}, {1, 0} };
+int backup[MAX][2];
 
-void bfs(int start_x, int start_y, int end_x, int end_y)
+int N, M = 0;
+
+void bfs(int start, int end)
 {
-	queue<pair<pair<int, int>, int>> q;
-	q.push(make_pair(make_pair(start_x, start_y), 0));
+	queue<pair<int, int>> q;
+	q.push(make_pair(start, 0));
 
-	memset(backup, -1, sizeof(int) * (N_M_MAX * N_M_MAX * 2));
-	backup[0][0][0] = 1;
+	memset(backup, -1, sizeof(int) * MAX);
+	backup[0][0] = 1;
 
 	while (!q.empty())
 	{
@@ -28,47 +29,48 @@ void bfs(int start_x, int start_y, int end_x, int end_y)
 
 		for (int i = 0; i < 4; i++)
 		{
-			int x = temp.first.first + list[i].first;
-			int y = temp.first.second + list[i].second;
+			int x = (temp.first / M) + list[k].first;
+			int y = (temp.first % M) + list[k].second;
 
 			if ((x < 0) || (y < 0)) continue;
-			if ((x > end_x) || (y > end_y)) continue;
+			if ((x >= N) || (y >= M)) continue;
 
-			if ((x == end_x) && (y == end_y))
+			int index = (x * M) + y;
+
+			if (index == end)
 			{
-				printf("%d", backup[temp.first.first][temp.first.second][temp.second] + 1);
+				printf("%d", backup[temp.first][temp.second] + 1);
 				return;
 			}
 
 			int wall = temp.second;
-			if (map[x][y] == 1) //º®
+			if (map[index] == 1) //º®
 			{
 				if (wall != 1)//º®¾ÆÁ÷¾È»Ñ¼ÌÀ½
 				{
 					wall = 1; //º®»Ñ¼ö±â
-					if (backup[x][y][wall] == -1)
+					if (backup[index][wall] == -1)
 					{
-						backup[x][y][wall] = backup[temp.first.first][temp.first.second][0] + 1;
-						q.push(make_pair(make_pair(x, y), wall));
+						backup[index][wall] = backup[temp.first][0] + 1;
+						q.push(make_pair(index, wall));
 					}
 				}
 			}
 			else //º®¾Æ´Ô
 			{
-				if (backup[x][y][wall] == -1)
+				if (backup[index][wall] == -1)
 				{
-					backup[x][y][wall] = backup[temp.first.first][temp.first.second][wall] + 1;
-					q.push(make_pair(make_pair(x, y), wall));
+					backup[index][wall] = backup[temp.first][wall] + 1;
+					q.push(make_pair(index, wall));
 				}
 			}
 		}
 	}
-	printf("%d", backup[end_x][end_y][0]);
+	printf("%d", backup[end][0]);
 }
 
 int main()
 {
-	int N, M = 0;
 	scanf("%d %d", &N, &M);
 
 	for (int i = 0; i < N; i++)
@@ -81,10 +83,10 @@ int main()
 			int a = temp[j] - '0';
 			int current = (i * M) + j; //ÇöÀç index
 
-			map[i][j] = a;
+			map[current] = a;
 		}
 	}
-	bfs(0, 0, (N - 1), (M - 1));
+	bfs(0, (N * M - 1));
 
 	return 0;
 }
