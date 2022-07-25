@@ -2,7 +2,7 @@
 
 ## 이번주 문제 (~22.07.28)
 <a href=https://www.acmicpc.net/problem/14002> 가장 긴 증가하는 부분 수열 4 </a>
-<a href=https://www.acmicpc.net/problem/3830 /a>
+<a href=https://www.acmicpc.net/problem/3830></a>
 
 ## 제출방법
 - 브랜치 생성 후 풀이한 코드를 Pull Request로 제출해주세요. (Main 브랜치에 바로 Push X)
