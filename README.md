@@ -21,7 +21,7 @@
 - 22.07.14 <a href=https://www.acmicpc.net/problem/2206> 벽 부수고 이동하기 </a>
 - 22.07.21 <a href=https://www.acmicpc.net/problem/2225> 합분해 </a>
 - 22.07.28 <a href=https://www.acmicpc.net/problem/14002> 가장 긴 증가하는 부분 수열 4 </a>
-- 22.08.11 <a href=https://www.acmicpc.net/problem/3830> 교수님은 기다리지 않는다 </a>
+- 22.08.04 <a href=https://www.acmicpc.net/problem/3830> 교수님은 기다리지 않는다 </a>
 
 </details>
 
