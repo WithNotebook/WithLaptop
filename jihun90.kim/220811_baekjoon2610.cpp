@@ -51,7 +51,7 @@
         vector<int> commonParents;
         for(int i=1; i<_N; i++)
         {
-            if (parents==_parents[i])
+            if (parents==find(_parents[i]))
             {
                 commonParents.push_back(i);
             }
@@ -108,7 +108,7 @@
             {
                 int maxTime = 0;
                 for(int vindex=0; vindex<commonParents.size(); vindex++)
-                {
+                {   
                     int time = _graph[*it][commonParents[vindex]];
                     if(maxTime < time )
                     {
@@ -126,7 +126,7 @@
         }
 
         sort(result.begin(), result.end());
-        printf("%d\n", result.size());
+        printf("%ld\n", result.size());
         for(vector<int>::iterator it=result.begin(); it!=result.end(); it++)
         {
             printf("%d\n", *it);
