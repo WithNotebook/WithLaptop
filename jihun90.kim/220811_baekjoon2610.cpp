@@ -1,6 +1,7 @@
     #include<stdio.h>
     #include<algorithm>
     #include<vector>
+    #include<set>
 
     using namespace std;
 
@@ -92,7 +93,7 @@
         floyd();
 
 
-        vector<int> result;
+        set<int> result;
         for(int i=1; i<_N; i++)
         {
 
@@ -122,12 +123,11 @@
                     ret = *it;
                 }
             }
-            result.push_back(ret);
+            result.insert(ret);
         }
 
-        sort(result.begin(), result.end());
         printf("%ld\n", result.size());
-        for(vector<int>::iterator it=result.begin(); it!=result.end(); it++)
+        for(set<int>::iterator it=result.begin(); it!=result.end(); it++)
         {
             printf("%d\n", *it);
         }
