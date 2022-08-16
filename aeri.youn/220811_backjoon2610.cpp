@@ -115,6 +115,7 @@ int main()
 			list.push_back(list_answer[i].first);
 		}
 	}
+	sort(list.begin(), list.end());
 	printf("%d\n", list.size());
 	for (auto i = list.begin(); i < list.end(); i++)
 	{
