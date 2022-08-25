@@ -9,6 +9,8 @@
 using namespace std;
 
 vector<pair<int, int>> graph[MAX];
+int root[MAX];
+
 void dijkstra(int start, int end,int num)
 {
     pair<int, int> startPoint(0, start);
@@ -17,6 +19,7 @@ void dijkstra(int start, int end,int num)
 
     vector<int> result(num+1, 999999);
     result[start] = 0;
+    root[start] = 0;
 
     unordered_set<int> resultPath;
 
@@ -35,37 +38,28 @@ void dijkstra(int start, int end,int num)
 
             if(result[nextIndex] > nextDist)
             {
+                root[nextIndex] = currentIndex;
                 result[nextIndex] = nextDist;
-                pq.push(pair<int, int>(nextIndex, nextDist));
-                resultPath.insert(currentIndex);
-                if(nextIndex == end)
-                {
-                    resultPath.insert(end);
-                    break;
-                }
+                pq.push(pair<int, int>(nextDist, nextIndex));
             }
         }
     }
 
     printf("%d\n", result[end]);
+
+    int temp = end;
+    while(temp)
+    {
+        resultPath.insert(temp);
+        temp = root[temp];
+    }
     printf("%ld\n", resultPath.size());
 
-    stack<int> stk;
-    for(auto it = resultPath.begin(); it!=resultPath.end(); it++)
+    for(unordered_set<int>::iterator it = resultPath.begin(); it!=resultPath.end(); it++)
     {
-        stk.push(*it);
+        printf("%d ", *it);
     }
-
-    while(!stk.empty())
-    {
-        printf("%d", stk.top());
-        stk.pop();
-        
-        if(!stk.empty())
-        {
-            printf(" ");
-        }
-    }
+    printf("\b\n");
 }
 
 int main()
@@ -81,7 +75,6 @@ int main()
         int a, b, dist;
         scanf("%d %d %d", &a, &b, &dist);
         graph[a].push_back(pair<int, int>(dist, b));
-        graph[b].push_back(pair<int, int>(dist, a));
     }
 
     scanf("%d %d", &start, &end);
