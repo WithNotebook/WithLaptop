@@ -1,10 +1,9 @@
 #include <stdio.h>
 #include <vector>
 #include <queue>
-#include <unordered_set>
-#include <stack>
 
 #define MAX 100001
+#define INF 1000 * 100000
 
 using namespace std;
 
@@ -17,11 +16,12 @@ void dijkstra(int start, int end,int num)
     priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
     pq.push(startPoint);
 
-    vector<int> result(num+1, 999999);
+    vector<int> result(num+1, INF);
+
     result[start] = 0;
     root[start] = 0;
 
-    unordered_set<int> resultPath;
+    vector<int> resultPath;
 
     while(!pq.empty())
     {
@@ -30,6 +30,11 @@ void dijkstra(int start, int end,int num)
         int currentDist =cur.first;
 
         pq.pop();
+
+        if(result[currentIndex] < currentDist)
+        {
+            continue;
+        }
     
         for(int i = 0; i < graph[currentIndex].size(); i++)
         {
@@ -50,12 +55,12 @@ void dijkstra(int start, int end,int num)
     int temp = end;
     while(temp)
     {
-        resultPath.insert(temp);
+        resultPath.push_back(temp);
         temp = root[temp];
     }
     printf("%ld\n", resultPath.size());
 
-    for(unordered_set<int>::iterator it = resultPath.begin(); it!=resultPath.end(); it++)
+    for(vector<int>::reverse_iterator it = resultPath.rbegin(); it!=resultPath.rend(); it++)
     {
         printf("%d ", *it);
     }
