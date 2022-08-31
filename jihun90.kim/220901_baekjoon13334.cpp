@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<queue>
 #include<vector>
+#include<algorithm>
 
 using namespace std;
 
@@ -12,23 +13,21 @@ typedef pair<long long, long long> pll2;
 int N;
 ll L;
 
-struct compare
+
+bool compare(pll2 a, pll2 b)
 {
-    bool operator()(pll2 a, pll2 b)
+    if(a.first == b.first)
     {
-        if(a.first == b.first)
-        {
-            return a.second > b.second;
-        }
-        return a.first > b.first;
+        return a.second < b.second;
     }
+    return a.first < b.first;
 };
 
 int main()
 {
     scanf("%d", &N);
 
-    priority_queue<pll2, vector<pll2>, compare> pq;
+    vector<pll2> v;
     for(int i=0; i<N; i++)
     {
         ll a, b;
@@ -36,27 +35,24 @@ int main()
         ll small, large;
         small = min(a, b);
         large = max(a, b);
-        pq.push(pair<ll, ll>(small, large));
+        v.push_back(pair<ll, ll>(small, large));
     }
+    sort(v.begin(), v.end(), compare);
     scanf("%lld", &L);
-
-    priority_queue<pll2, vector<pll2>, compare> tempPq;
-    tempPq = pq;
     
     ll maxCount = 0;
-    while (!tempPq.empty())
+    for(auto it = v.begin(); it!=v.end(); it++)
     {      
         ll start = -INF;
         ll end = -INF;
         ll lineCount = 0;
 
-        pq = tempPq;
-         while(!pq.empty())
+        vector<pll2>::iterator startIt = it;
+
+        for(auto sIt = startIt; sIt != v.end(); sIt++)
         {
-            pair<ll, ll> ho = pq.top();
-            ll curStart = ho.first;
-            ll curEnd = ho.second;
-            pq.pop();
+            ll curStart = (*sIt).first;
+            ll curEnd = (*sIt).second;
 
             if ((end < curStart))
             {
@@ -67,17 +63,15 @@ int main()
 
             if ((end-start) > L)
             {
-                lineCount = 0;
                 break;
             }
 
             lineCount++;
-            if(maxCount < lineCount) maxCount = lineCount;
+            maxCount = max(maxCount, lineCount);
         }
-        tempPq.pop();
     }
 
-    printf("%lld", maxCount);
+    printf("%lld\n", maxCount);
 
     return 0;
 }
