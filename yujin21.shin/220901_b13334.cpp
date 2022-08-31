@@ -2,6 +2,7 @@
 #include <vector>
 #include <algorithm>
 #include <math.h>
+#include <queue>
 
 using namespace std;
 
@@ -11,13 +12,9 @@ struct INFO {
 };
 
 bool operator<(INFO a, INFO b) {
-	if (a.start == b.start)
-		a.end < b.end;
-	return a.start < b.start;
-}
-
-long long distance(int start, int end) {
-	return end - start;
+	if (a.end == b.end)
+		a.start < b.start;
+	return a.end < b.end;
 }
 
 int main() {
@@ -37,31 +34,28 @@ int main() {
 	cin >> L;
 
 	//구현
-	int start=0, end=0;
-	long long answer = 0;
+	int start=-100000001;
+	int end = -1;
+	int answer = 0;
 	long long cnt=0;
-	vector<bool> visited(peopleNum);
+	priority_queue<int,vector<int>,greater<int>> pq;
 	for (int i = 0; i < peopleNum; i++) {
-		start = infoList[i].start;
-		cnt = 0;
+		if (infoList[i].end - infoList[i].start > L) continue;
 
-		if ((peopleNum - i + 1) <= answer)	break;
-		else if (visited[peopleNum-1]) break;
-
-		if(distance(infoList[i].start, infoList[i].end) <= L )	cnt++;
-		for (int j = i+1; j < peopleNum; j++)
-		{
-			if (distance(start, infoList[j].start) >= L) {
-				break;
-			}
-			else {
-				if (distance(start, infoList[j].end) <= L) {
-					cnt++;
-					visited[j] = true;
-				}
-			}
+		if (infoList[i].start > start) {
+			start = infoList[i].end - L;
+			end = infoList[i].end;
 		}
-		answer = max(cnt, answer);
+
+		if (infoList[i].end <= end)
+			pq.push(infoList[i].start);
+
+		while(pq.top() < start){
+				pq.pop();
+		}
+		
+		int answerVectorSize = pq.size();
+		answer = max(answerVectorSize, answer);
 	}
 	cout << answer;
 }
