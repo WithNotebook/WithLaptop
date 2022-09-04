@@ -13,14 +13,13 @@ typedef pair<long long, long long> pll2;
 int N;
 ll L;
 
-
 bool compare(pll2 a, pll2 b)
 {
-    if(a.first == b.first)
+    if(a.second == b.second)
     {
-        return a.second < b.second;
+        return a.first < b.first;
     }
-    return a.first < b.first;
+    return a.second < b.second;
 };
 
 int main()
@@ -41,34 +40,29 @@ int main()
     scanf("%lld", &L);
     
     ll maxCount = 0;
+    ll lineCount = 0;
+    priority_queue<long, vector<long>, greater<long>> startPq;
     for(auto it = v.begin(); it!=v.end(); it++)
     {      
-        ll start = -INF;
-        ll end = -INF;
-        ll lineCount = 0;
+        ll curStart = (*it).first;
+        ll curEnd = (*it).second;
 
-        vector<pll2>::iterator startIt = it;
+        if((curEnd-curStart) > L) continue;
+        else startPq.push(curStart);
 
-        for(auto sIt = startIt; sIt != v.end(); sIt++)
+        lineCount++;
+
+        while (!startPq.empty())
         {
-            ll curStart = (*sIt).first;
-            ll curEnd = (*sIt).second;
-
-            if ((end < curStart))
+            long tempStart = curEnd - L;
+            if (tempStart > startPq.top()) 
             {
-                start = curStart;
-                lineCount = 0;
+                startPq.pop();
+                lineCount--;
             }
-            end = max(end, curEnd);
-
-            if ((end-start) > L)
-            {
-                break;
-            }
-
-            lineCount++;
-            maxCount = max(maxCount, lineCount);
+            else break;
         }
+        maxCount = max(maxCount, lineCount);
     }
 
     printf("%lld\n", maxCount);
