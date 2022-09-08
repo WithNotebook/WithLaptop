@@ -1,6 +1,6 @@
 <img align="right" src = "https://user-images.githubusercontent.com/51199859/177047110-10fb5d09-f9e0-46c0-b2f5-c2db2b68b792.png" />    
 
-## 이번주 문제 (~22.09.08)
+## 이번주 문제 (~22.09.15)
 <a href=https://www.acmicpc.net/problem/1167> 트리의 지름 </a>
 
 ## 제출방법
