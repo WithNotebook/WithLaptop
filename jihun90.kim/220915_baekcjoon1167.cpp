@@ -8,24 +8,30 @@ using namespace std;
 int V;
 map<int, int> tree[100001];
 bool visited[100001];
+pair<int, int> maxDist;
 
-int dfs(int cur,int distance)
+void dfs(int cur, int distance)
 {
-    int tempDist = 0;
+    pair<int,int> temp;
+
     for(map<int,int>::iterator it = tree[cur].begin(); it!=tree[cur].end(); it++)
     {
         int next = (*it).first;
         if(!visited[next])
         {
             int nextDist = distance + (*it).second;
+
+            if(nextDist > maxDist.second)
+            {
+                maxDist.first = next;
+                maxDist.second = nextDist;
+            }
+            
             visited[next] = true;
-            tempDist = max(dfs(next, nextDist), tempDist);
+            dfs(next, nextDist);
             visited[next] = false;
         }
-
     }
-
-    return max(tempDist, distance);
 }
 
 int main()
@@ -53,13 +59,17 @@ int main()
     }
     
     int maxValue = 0;
-    for(int i=1; i<=V; i++)
-    {
-        visited[i] = true;
-        maxValue = max(dfs(i, 0), maxValue);
-        visited[i] = false;
-    }
 
-    printf("%d", maxValue);
+    int start = 2;
+    visited[start] = true;
+    dfs(start, 0);
+    visited[start] = false;
+
+    start = maxDist.first;
+    visited[start] = true;
+    dfs(start, 0);
+    visited[start] = false;
+
+    printf("%d", maxDist.second);
     return 0;
 }
