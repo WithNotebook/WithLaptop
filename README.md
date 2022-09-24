@@ -1,7 +1,7 @@
 <img align="right" src = "https://user-images.githubusercontent.com/51199859/177047110-10fb5d09-f9e0-46c0-b2f5-c2db2b68b792.png" />    
 
-## 이번주 문제 (~22.09.22)
-<a href=https://www.acmicpc.net/problem/1504> 특정한 최단 경로 </a>
+## 이번주 문제 (~22.09.29)
+<a href=https://www.acmicpc.net/problem/2631> 줄세우기 </a>
 
 ## 제출방법
 - 브랜치 생성 후 풀이한 코드를 Pull Request로 제출해주세요. (Main 브랜치에 바로 Push X)
@@ -27,6 +27,7 @@
 - 22.09.01 <a href=https://www.acmicpc.net/problem/13334> 철로 </a>
 - 22.09.08 <a href=https://www.acmicpc.net/problem/2138> 전구와 스위치 </a>
 - 22.09.15 <a href=https://www.acmicpc.net/problem/1167> 트리의 지름 </a>
+- 22.09.22 <a href=https://www.acmicpc.net/problem/1504> 특정한 최단 경로 </a>
 </details>
 
 
@@ -40,6 +41,10 @@ https://www.acmicpc.net/workbook/codeplus/1
   - 10,000원 (22.07.28)
 - 신유진:
   - 10,000원 (22.08.04)
+- 윤애리 :
+  - 10,000원 (22.09.22)
+- 한우리 :
+  - 10,000원 (22.09.22)
 
 ## 부재중
  - 허원익, 김혜현 ~9/23 : 교육 
