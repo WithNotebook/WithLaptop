@@ -48,3 +48,4 @@ https://www.acmicpc.net/workbook/codeplus/1
 
 ## 부재중
  - 허원익, 김혜현 ~9/23 : 교육 
+ - 허원익, 김혜현 ~10/6 : 면접준비
