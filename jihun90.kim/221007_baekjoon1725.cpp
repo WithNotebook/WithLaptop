@@ -4,7 +4,7 @@
 
 using namespace std;
 
-long long h[100001];
+long long h[100002];
 
 int main()
 {
@@ -22,7 +22,7 @@ int main()
     stack<long long> lls; 
     long long maxVal = 0;
     lls.push(0);
-    for(int i = 1; i < N+1; i++)
+    for(int i = 1; i < N+2; i++)
     {
         if(!lls.empty())
         {
@@ -34,7 +34,8 @@ int main()
 
             lls.push(i);
         }
-}
+    }
 
+    printf("%lld", maxVal);
     return 0;
 }
