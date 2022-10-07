@@ -1,7 +1,10 @@
 #include<stdio.h>
 #include<stack>
+#include<algorithm>
 
 using namespace std;
+
+long long h[100001];
 
 int main()
 {
@@ -9,46 +12,29 @@ int main()
     int N;
     scanf("%d", &N);
 
-    stack<long long> lls; 
-    int maxVal = 0;
-    for(int i = 0; i < N; i++)
+    for(int i = 1; i<=N; i++)
     {
         long long in;
         scanf("%lld", &in);
-
-        if(lls.empty())
-        {
-            lls.push(in);
-        }
-        else
-        {
-            long long temp = lls.top();
-            if(temp > in)
-            {
-                int area=0;
-                int count=0;
-                while(temp != lls.top())
-                {
-                    area += lls.top();
-                    lls.pop();
-                    count++;
-                }
-
-                for(int i=0; i<count; i++)
-                {
-                    lls.push(in);
-                }
-            }
-            lls.push(in);
-
-            if (temp > maxVal) 
-            {
-                maxVal = temp;
-            }
-        }
-
-
+        h[i] = in;
     }
+
+    stack<long long> lls; 
+    long long maxVal = 0;
+    lls.push(0);
+    for(int i = 1; i < N+1; i++)
+    {
+        if(!lls.empty())
+        {
+            while(h[i] < h[lls.top()])
+            {
+                maxVal = max(maxVal, h[lls.top()] * (i - lls.top()));
+                lls.pop();
+            }
+
+            lls.push(i);
+        }
+}
 
     return 0;
 }
