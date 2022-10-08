@@ -37,7 +37,7 @@ int dijkstra(int start, int end, int N)
 
             if(arr[next] > nextDist)
             {
-                pq.push(pair<int, int>(nextDist, nextDist));
+                pq.push(pair<int, int>(nextDist, next));
                 arr[next]= nextDist;
             }
         }
