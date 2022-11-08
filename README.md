@@ -1,5 +1,8 @@
 <img align="right" src = "https://user-images.githubusercontent.com/51199859/177047110-10fb5d09-f9e0-46c0-b2f5-c2db2b68b792.png" />    
 
+## 공지사항
+ - 12월 7일 수요일 벌금 파티!
+
 ## 이번주 문제 (~22.11.11)
 <a href=https://www.acmicpc.net/problem/9251> LCS </a>
 
