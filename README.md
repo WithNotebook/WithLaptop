@@ -4,7 +4,7 @@
  - 12월 7일 수요일 벌금 파티!
 
 ## 이번주 문제 (~22.11.11)
-<a href=https://www.acmicpc.net/problem/9251> LCS </a>
+<a href=https://www.acmicpc.net/problem/16947> 서울 지하철 2호선 </a>
 
 ## 제출방법
 - 브랜치 생성 후 풀이한 코드를 Pull Request로 제출해주세요. (Main 브랜치에 바로 Push X)
@@ -37,6 +37,7 @@
 - 22.10.21 <a href=https://www.acmicpc.net/problem/17404> RGB거리 2 </a>
 - 22.10.28 <a href=https://www.acmicpc.net/problem/14501> 퇴사 </a>
 - 22.11.04 <a href=https://www.acmicpc.net/problem/13460> 구슬 탈출 2 </a>
+- 22.11.11 <a href=https://www.acmicpc.net/problem/9251> LCS </a>
 </details>
 
 
