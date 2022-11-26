@@ -3,8 +3,9 @@
 ## 공지사항
  - 12월 7일 수요일 벌금 파티!
 
-## 이번주 문제 (~22.11.25)
-<a href=https://www.acmicpc.net/problem/2616> 소형기관차 </a>
+## 이번주 문제 (~22.12.2)
+
+<a href=https://www.acmicpc.net/problem/1717> 집합의 표현 </a>
 
 ## 제출방법
 - 브랜치 생성 후 풀이한 코드를 Pull Request로 제출해주세요. (Main 브랜치에 바로 Push X)
@@ -39,6 +40,7 @@
 - 22.11.04 <a href=https://www.acmicpc.net/problem/13460> 구슬 탈출 2 </a>
 - 22.11.11 <a href=https://www.acmicpc.net/problem/9251> LCS </a>
 - 22.11.18 <a href=https://www.acmicpc.net/problem/16947> 서울 지하철 2호선 </a>
+- 22.11.25 <a href=https://www.acmicpc.net/problem/2616> 소형기관차 </a>
 </details>
 
 
@@ -55,10 +57,12 @@ https://www.acmicpc.net/workbook/codeplus/1
   - 10,000원 (22.11.04)
   - 10,000원 (22.11.11)
   - 10,000원 (22.11.18)
+  - 10,000원 (22.11.25)
 - 신유진:
   - 10,000원 (22.08.04)
   - 10,000원 (22.10.21)
   - 10,000원 (22.11.18)
+  - 10,000원 (22.11.25)
 - 윤애리 :
   - 10,000원 (22.09.22)
   - 10,000원 (22.10.21)
@@ -69,3 +73,4 @@ https://www.acmicpc.net/workbook/codeplus/1
   - 10,000원 (22.11.04)
 - 김지훈 :
   - 10,000원 (22.11.04)
+  - 10,000원 (22.11.25)
