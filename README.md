@@ -3,9 +3,9 @@
 ## 공지사항
  - 다시 시작!
 
-## 이번주 문제 (~22.12.16)
+## 이번주 문제 (~22.12.23)
+<a href=https://www.acmicpc.net/problem/12969> ABC </a>
 
-<a href=https://www.acmicpc.net/problem/1655> 가운데를 말해요 </a>
 
 ## 제출방법
 - 브랜치 생성 후 풀이한 코드를 Pull Request로 제출해주세요. (Main 브랜치에 바로 Push X)
@@ -42,6 +42,7 @@
 - 22.11.18 <a href=https://www.acmicpc.net/problem/16947> 서울 지하철 2호선 </a>
 - 22.11.25 <a href=https://www.acmicpc.net/problem/2616> 소형기관차 </a>
 - 22.12.02 <a href=https://www.acmicpc.net/problem/1717> 집합의 표현 </a>
+- 22.12.16 <a href=https://www.acmicpc.net/problem/1655> 가운데를 말해요 </a>
 </details>
 
 
@@ -50,3 +51,7 @@ https://www.acmicpc.net/workbook/codeplus/1
 
 
 ## 벌금 (22.12.16~)
+- 김지훈 :
+   - 10,000원 (22.12.16)
+- 신유진 :
+   - 10,000원 (22.12.16)
