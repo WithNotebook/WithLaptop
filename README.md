@@ -5,6 +5,7 @@
 
 ## 이번주 문제 (~22.12.23)
 <a href=https://www.acmicpc.net/problem/12969> ABC </a>
+(조금 더 쉬운 버전으로 <a href=https://www.acmicpc.net/problem/12970> AB </a>도 있습니다)
 
 
 ## 제출방법
