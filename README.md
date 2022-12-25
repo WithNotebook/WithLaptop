@@ -1,11 +1,12 @@
 <img align="right" src = "https://user-images.githubusercontent.com/51199859/177047110-10fb5d09-f9e0-46c0-b2f5-c2db2b68b792.png" />    
 
 ## 공지사항
- - 다시 시작!
+ - ~23.12.30 방학 공지드립니다.
+ - ~23.01.?? 신유진 프로님 영국 여행중... (해당 기간동안 벌금면제)
 
-## 이번주 문제 (~22.12.23)
-<a href=https://www.acmicpc.net/problem/12969> ABC </a>
-<br> (조금 더 쉬운 버전으로 <a href=https://www.acmicpc.net/problem/12970> AB </a>도 있으니 참고!)
+## 이번주 문제 (~23.12.30)
+ - 겨울방학! 좋은 연말 보내세요!!!
+
 
 
 ## 제출방법
@@ -44,6 +45,8 @@
 - 22.11.25 <a href=https://www.acmicpc.net/problem/2616> 소형기관차 </a>
 - 22.12.02 <a href=https://www.acmicpc.net/problem/1717> 집합의 표현 </a>
 - 22.12.16 <a href=https://www.acmicpc.net/problem/1655> 가운데를 말해요 </a>
+- 22.12.23 <a href=https://www.acmicpc.net/problem/12969> ABC </a>
+<br> (조금 더 쉬운 버전으로 <a href=https://www.acmicpc.net/problem/12970> AB </a>도 있으니 참고!)
 </details>
 
 
@@ -52,7 +55,12 @@ https://www.acmicpc.net/workbook/codeplus/1
 
 
 ## 벌금 (22.12.16~)
+- 허원익 :
+   - 10,000원 (22.12.23)
+- 한우리 :
+   - 10,000원 (22.12.23)
 - 김지훈 :
    - 10,000원 (22.12.16)
 - 신유진 :
    - 10,000원 (22.12.16)
+   - 10,000원 (22.12.23)
