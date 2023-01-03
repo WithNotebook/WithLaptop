@@ -5,7 +5,7 @@
  - ~23.01.?? 신유진 프로님 영국 여행중... (해당 기간동안 벌금면제)
 
 ## 이번주 문제 (~23.01.06)
- - 12.01.06 <a href=https://https://www.acmicpc.net/problem/17822> 원판 돌리기 </a>
+ - 12.01.06 <a href=https://www.acmicpc.net/problem/17822> 원판 돌리기 </a>
 
 ## 제출방법
 - 브랜치 생성 후 풀이한 코드를 Pull Request로 제출해주세요. (Main 브랜치에 바로 Push X)
