@@ -79,8 +79,8 @@ bool hasAnyAdjacentSameNumber(int i, int c) {
 
     for (int k = 0; k < 4; k++) {
         int curI = i + directions[k][0];
-        int curC = inRangeC(twelves[curI] + c);
-        int curJ = inRangeJ(curC + directions[k][1]);
+        int curC = inRangeC(c + directions[k][1]);
+        int curJ = inRangeJ(twelves[curI] + curC);
 
         if (curI <= 0 || curI > N || curJ <= 0 || curJ > M) continue;
 
