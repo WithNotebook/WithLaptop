@@ -2,10 +2,9 @@
 
 ## 공지사항
  - 2023년 시작!
- - ~23.01.?? 신유진 프로님 영국 여행중... (해당 기간동안 벌금면제)
 
-## 이번주 문제 (~23.01.06)
- - 12.01.06 <a href=https://www.acmicpc.net/problem/17822> 원판 돌리기 </a>
+## 이번주 문제 (~23.01.13)
+ - 23.01.13 <a href=https://www.acmicpc.net/problem/2110> 공유기 설치 </a>
 
 ## 제출방법
 - 브랜치 생성 후 풀이한 코드를 Pull Request로 제출해주세요. (Main 브랜치에 바로 Push X)
@@ -44,6 +43,7 @@
 - 22.12.16 <a href=https://www.acmicpc.net/problem/1655> 가운데를 말해요 </a>
 - 22.12.23 <a href=https://www.acmicpc.net/problem/12969> ABC </a>
 <br> (조금 더 쉬운 버전으로 <a href=https://www.acmicpc.net/problem/12970> AB </a>도 있으니 참고!)
+- 23.01.06 <a href=https://www.acmicpc.net/problem/17822> 원판 돌리기 </a>
 </details>
 
 
@@ -54,10 +54,15 @@ https://www.acmicpc.net/workbook/codeplus/1
 ## 벌금 (22.12.16~)
 - 허원익 :
    - 10,000원 (22.12.23)
+   - 10,000원 (23.01.06)
 - 한우리 :
    - 10,000원 (22.12.23)
+   - 10,000원 (23.01.06)
+- 윤애리 :
+   - 10,000원 (23.01.06)
 - 김지훈 :
    - 10,000원 (22.12.16)
+   - 10,000원 (23.01.06)
 - 신유진 :
    - 10,000원 (22.12.16)
    - 10,000원 (22.12.23)
