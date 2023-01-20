@@ -3,8 +3,8 @@
 ## 공지사항
  - 2023년 시작!
 
-## 이번주 문제 (~23.01.13)
- - 23.01.20 <a href=https://www.acmicpc.net/problem/4179> 불 </a>
+## 이번주 문제 (~23.01.27)
+ - ### 해삐 설날!!! 명절 잘 보내세요!
 
 ## 제출방법
 - 브랜치 생성 후 풀이한 코드를 Pull Request로 제출해주세요. (Main 브랜치에 바로 Push X)
@@ -45,6 +45,7 @@
 <br> (조금 더 쉬운 버전으로 <a href=https://www.acmicpc.net/problem/12970> AB </a>도 있으니 참고!)
 - 23.01.06 <a href=https://www.acmicpc.net/problem/17822> 원판 돌리기 </a>
 - 23.01.13 <a href=https://www.acmicpc.net/problem/2110> 공유기 설치 </a>
+- 23.01.20 <a href=https://www.acmicpc.net/problem/4179> 불 </a>
 </details>
 
 
