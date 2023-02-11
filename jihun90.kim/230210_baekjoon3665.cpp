@@ -29,21 +29,21 @@ int main()
 			inDegree[i] = 0;
 		}
 
+        for(int i=1; i<=n; i++)
+        {
+            for(int j=1; j<=n; j++)
+            {
+                adj[i][j] = 0;
+            }
+        }
+
 		for (int i = 1; i <= n; i++)
 		{
-			for (int j = i; j <= n; j++)
+			for (int j = (i + 1); j <= n; j++)
 			{			
-				
-				if (i == j)
-				{
-					adj[t[i]][t[j]] = 0;
-				}
-				else
-				{ 
-					adj[t[i]][t[j]] = 1;
-					inDegree[t[j]]++;
-				}
-			}
+                adj[t[i]][t[j]] = 1;
+                inDegree[t[j]]++;
+            }
 		}
 
 		int m;
