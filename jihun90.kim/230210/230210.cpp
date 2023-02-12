@@ -52,6 +52,8 @@ pair<int, long long> dijkstra(int N, int M)
         city cur = pq.top();
         pq.pop();
 
+        if (dist[cur.pos][cur.isReturn][cur.isPaved] < cur.dist) continue;
+
         for(auto it=map[cur.pos].begin(); it!=map[cur.pos].end(); it++)
         {
             city next = (*it);
