@@ -4,7 +4,7 @@
  - 2023년 시작!
 
 ## 이번주 문제 (~23.02.24)
- - 23.02.24 <a href=https://www.acmicpc.net/problem/20188> 등산 마니아 </a>
+ - ~~23.02.24 <a href=https://www.acmicpc.net/problem/20188> 등산 마니아~~ 문제 구려서 삭제 </a>
  - 23.02.24 <a href=https://www.acmicpc.net/problem/1949> 우수 마을 </a>
 ## 제출방법
 - 브랜치 생성 후 풀이한 코드를 Pull Request로 제출해주세요. (Main 브랜치에 바로 Push X)
