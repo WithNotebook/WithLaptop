@@ -1,22 +1,22 @@
 #include<stdio.h>
 #include<vector>
-#include<queue>
+#include<algorithm>
 
 using namespace std;
 
-#define N_MAX 100001;
+#define N_MAX 100001
 
-int city[N_MAX];
+long long city[N_MAX];
 long long dp[N_MAX][2];
 vector<long long> tree[N_MAX];
 bool visited[N_MAX];
 
-void long dfs(int cur)
+void dfs(int cur)
 {
     visited[cur] = true;
 
     dp[cur][0] = 0;
-    dp[cur][1] = tree[cur];
+    dp[cur][1] = city[cur];
 
     for(auto it = tree[cur].begin(); it!=tree[cur].end(); it++)
     {
@@ -25,12 +25,10 @@ void long dfs(int cur)
         {
             dfs(next);
 
-            dp[cur][0] += max(dp[next][0], dp[next][1]);
+            dp[cur][0] += max(dp[next][0], dp[next][1]);  
             dp[cur][1] += dp[next][0];
         }
     }
-
-    return 0;
 }
 
 void init(int N)
@@ -61,10 +59,12 @@ int main()
         int a, b;
         scanf("%d %d", &a, &b);
         tree[a].push_back(b);
-        tree[b].pop_back(a);
+        tree[b].push_back(a);
     }
 
     dfs(1);
 
-    retrun 0;
+    printf("%lld\n", max(dp[1][0],dp[1][1]));
+
+    return 0;
 }
