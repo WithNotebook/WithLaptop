@@ -1,16 +1,15 @@
-#include<stdio.h>
 #include<cmath>
 #include<vector>
+#include<iostream>
 
 using namespace std;
 
 #define N_MAX 100001
 
 vector<int> graph[N_MAX];
-vector<int> tree[N_MAX];
 vector<int> parents[N_MAX];
 int nodeDepth[N_MAX];
-bool visited[N_MAX] = {false, };
+bool visited[N_MAX];
 
 int log_N;
 int N;
@@ -27,6 +26,11 @@ int LCA(int a, int b)
         for(int i=log_N-1; i>=0; i--)
         {
             int targetDepth = nodeDepth[parents[targetNode][i]];
+            if (targetDepth == nodeDepth[compareNode]) 
+            {
+                targetNode = parents[targetNode][i]; 
+                break;
+            }
             if(targetDepth >= nodeDepth[compareNode])
             {
                 targetNode = parents[targetNode][i];
@@ -67,7 +71,6 @@ void setParents() //*** 별표 3개!
 
 void setTree(int cur)
 {
-
     for(vector<int>::iterator it = graph[cur].begin(); it!=graph[cur].end(); it++)
     {
         int next = (*it);
@@ -75,31 +78,32 @@ void setTree(int cur)
         {
             parents[next][0] = cur;
             visited[next] = true;
-            tree[cur].push_back(next);
             nodeDepth[next] = nodeDepth[cur] +1;
             setTree(next);
         }
     }
-    return ;
 }
 
 int main()
 {
-    scanf("%d", &N);
+    ios_base::sync_with_stdio(false); cout.tie(NULL); cin.tie(NULL);
+    
+    cin >> N;
 
     for(int i=1; i<N; i++)
     {
         int a, b;
-        scanf("%d %d", &a, &b);
+        cin >> a >> b;
 
         graph[a].push_back(b);
         graph[b].push_back(a);
     }
 
-    log_N = log(N_MAX)+1;
+    log_N = log(N)+1;
 
     for(int i=0; i<=N; i++)
     {
+        nodeDepth[i] = 0;
         parents[i].resize(log_N);
     }
 
@@ -111,15 +115,14 @@ int main()
     setParents();
     
     int M=0; 
-    scanf("%d", &M);
+    cin >> M;
 
-    for(int i=0; i<M; i++)
+    while (M--)
     {
         int a,b;
-        scanf("%d %d", &a, &b);
+        cin >> a >> b;
         int result = LCA(a, b);
-        printf("%d\n", result);
+        cout << result << '\n';
     }
-
     return 0;
 }
