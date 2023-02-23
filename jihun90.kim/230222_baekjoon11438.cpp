@@ -21,7 +21,8 @@ int LCA(int a, int b)
     {
         if(depth[targetNode] < depth[compareNode]) swap(targetNode, compareNode);
         
-        for(int i=LOG_N-1; i>=0; i--)
+        int logN = floor(log2(depth[targetNode])); // 2^(logN+1) >= depth[targetLog]
+        for(int i=logN; i>=0; i--)
         {
             int targetDepth = depth[parents[targetNode][i]];
             if(targetDepth >= depth[compareNode])
@@ -34,14 +35,15 @@ int LCA(int a, int b)
     int result = targetNode;
     if (targetNode != compareNode)
     {
-        for(int i=LOG_N-1; i>=0; i--) 
+        int logN = floor(log2(depth[targetNode])); // 2^(logN+1) >= depth[targetLog]
+        for(int i=logN; i>=0; i--) 
         {
             if(parents[compareNode][i] != parents[targetNode][i])
             {
                 targetNode = parents[targetNode][i];
                 compareNode = parents[compareNode][i];
             }
-            result = parents[targetNode][0];//result = parents[targetNode][i]; ***
+            result = parents[targetNode][i];
         }
     }
     return result;
