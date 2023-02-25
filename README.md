@@ -4,8 +4,8 @@
  - 2023년 시작!
 
 ## 이번주 문제 (~23.02.24)
- - ~~23.02.24 <a href=https://www.acmicpc.net/problem/20188> 등산 마니아~~ 문제 구려서 삭제 </a>
- - 23.02.24 <a href=https://www.acmicpc.net/problem/1949> 우수 마을 </a>
+ - 23.03.03 [카드 게임](https://www.acmicpc.net/problem/16566)
+ 
 ## 제출방법
 - 브랜치 생성 후 풀이한 코드를 Pull Request로 제출해주세요. (Main 브랜치에 바로 Push X)
 - PR을 만들때 제출한 코드의 결과를 라벨로 붙여주세요.
@@ -49,6 +49,7 @@
 - 23.02.03 <a href=https://www.acmicpc.net/problem/1162> 도로포장 </a>
 - 23.02.10 <a href=https://www.acmicpc.net/problem/3665> 최종순위 </a>
 - 23.02.17 <a href=https://www.acmicpc.net/problem/1520> 내리막 길 </a>
+- 23.02.24 <a href=https://www.acmicpc.net/problem/1949> 우수 마을 </a>
 </details>
 
 
@@ -63,6 +64,7 @@ https://www.acmicpc.net/workbook/codeplus/1
    - 10,000원 (23.02.03)
    - 10,000원 (23.02.10)
    - 10,000원 (23.02.17)
+   - 10,000원 (23.02.24)
 - 한우리 :
    - 10,000원 (22.12.23)
    - 10,000원 (23.01.06)
@@ -77,3 +79,7 @@ https://www.acmicpc.net/workbook/codeplus/1
    - 10,000원 (22.12.23)
    - 10,000원 (23.01.13)
    - 10,000원 (23.01.23)
+   - 10,000원 (23.02.24)
+   
+## 벌금 사용 내역
+ - 55,000원 쭈꾸미도사(23.02.23) 
