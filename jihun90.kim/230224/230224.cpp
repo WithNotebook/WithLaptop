@@ -33,8 +33,8 @@ battle init(int start, int end, int node)
     {
         result.teamA.min = aTeam[start];
         result.teamA.sum = aTeam[start];
-        result.teamB.min = aTeam[start];
-        result.teamB.sum = aTeam[start];
+        result.teamB.min = bTeam[start];
+        result.teamB.sum = bTeam[start];
         return (battleTree[node] = result);
     }
 
@@ -62,7 +62,7 @@ battle init(int start, int end, int node)
 
 team printTeamA(int start, int end, int node, int left, int right)
 {
-    if((right<start) || (end < left)) team({0, N_MAX});
+    if((right<start) || (end < left)) return team({0, N_MAX});
     if((left <= start) && (end <= right)) return battleTree[node].teamA;
 
     int mid = (start + end) /2;
@@ -78,7 +78,7 @@ team printTeamA(int start, int end, int node, int left, int right)
 
 team printTeamB(int start, int end, int node, int left, int right)
 {
-    if((right<start) || (end < left)) team({0, N_MAX});
+    if((right<start) || (end < left)) return team({0, N_MAX});
     if((left <= start) && (end <= right)) return battleTree[node].teamB;
 
     int mid = (start + end) /2;
@@ -134,7 +134,6 @@ int main()
         while (!pqB.empty())
         {
             long long b = pqB.top();
-            pqB.pop();
 
             long long temp = abs(a-b);
             if (temp > result) break;
@@ -142,6 +141,7 @@ int main()
             result = min(result, temp);
 
             if (result == 0) break;
+            pqB.pop();
         }        
         if (result == 0) break;
     }
