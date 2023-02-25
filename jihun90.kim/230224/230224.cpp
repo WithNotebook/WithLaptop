@@ -112,9 +112,8 @@ int main()
     }
 
     init(1, N, 1);
-
-    priority_queue<long long, vector<long long>, greater<long long>> pqA;
-    priority_queue<long long, vector<long long>, greater<long long>> pqB;
+    vector<long long> vA;
+    vector<long long> vB;
 
     for(int i=1; (i+K-1)<=N; i++)
     {
@@ -122,28 +121,27 @@ int main()
         team tempA = printTeamA(1, N, 1, i, end);
         team tempB = printTeamB(1, N, 1, i, end);
         
-        pqA.push(tempA.sum - (tempA.min + tempA.min));
-        pqB.push(tempB.sum - (tempB.min + tempB.min));
+        vA.push_back(tempA.sum - (tempA.min + tempA.min));
+        vB.push_back(tempB.sum - (tempB.min + tempB.min));
     }
 
+    sort(vA.begin(), vA.end(), greater<long long>());
+    sort(vB.begin(), vB.end(), greater<long long>());
+
     long long result = N_MAX * K;
-    while (!pqA.empty())
+    for(auto i : vA)
     {
-        long long a = pqA.top();
-        pqA.pop();
-        while (!pqB.empty())
+        long long a = i;
+        for(auto j : vB)
         {
-            long long b = pqB.top();
-
+            long long b = j;
             long long temp = abs(a-b);
+            
             if (temp > result) break;
-
+            
             result = min(result, temp);
-
-            if (result == 0) break;
-            pqB.pop();
-        }        
-        if (result == 0) break;
+        }
+        if(result == 0 ) break;
     }
 
     printf("%lld", result);
