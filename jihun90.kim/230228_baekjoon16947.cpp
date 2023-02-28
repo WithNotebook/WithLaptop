@@ -32,8 +32,6 @@ bool findRing(int prev, int cur)
 
         int next = (*it);
         bool tempRing = findRing(cur, next);
-        
-        if(isRing[cur]) tempRing = false;
 
         if (tempRing) hasTrue = true;
         else hasFalse = true;
@@ -42,7 +40,13 @@ bool findRing(int prev, int cur)
 
     }
     if(hasFalse && hasTrue) ringPoint.insert(cur);
+    if(isRing[cur]) 
+    {
+        ring = false;
+        ringPoint.insert(cur);
+    }
     if(!isRing[cur]) isRing[cur] = ring;
+
 
     return ring;
 }
@@ -90,6 +94,5 @@ int main()
     {
         printf("%d ", dist[i]);
     }
-
     return 0;
 }
