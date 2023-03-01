@@ -64,7 +64,11 @@ void init(int cur)
 
     for(auto it = tree[cur].begin(); it!=tree[cur].end(); it++)
     {
-        if(parent[cur][0] == (*it).first) tree[cur].erase(it);
+        if(parent[cur][0] == (*it).first)
+        {
+            //tree[cur].erase(it);
+            continue;
+        }
         if(it == tree[cur].end()) break;
 
         int next = (*it).first;
@@ -92,10 +96,13 @@ int main()
         int a, b;
         int dist;
         scanf("%d %d %d",&a ,&b ,&dist);
-        tree[a].push_back(pair<int, long long>(b, dist));
-        tree[b].push_back(pair<int, long long>(a, dist));
+        pair<int, int> temp1(a, dist);
+        pair<int, int> temp2(b, dist);
+        tree[a].push_back(temp2);
+        tree[b].push_back(temp1);
     }
 
+    depth[1] = 0;
     init(1);
 
     int M;
