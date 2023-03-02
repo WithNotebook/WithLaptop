@@ -1,12 +1,13 @@
 #include<stdio.h>
 #include<vector>
 #include<cmath>
+#include<algorithm>
 
 using namespace std;
 
 #define N_MAX 40001
 #define M_MAX 10001
-#define LOG_MAX 15 // log2(N_MAX*M_MAX)
+#define LOG_MAX 16 // log2(N_MAX*M_MAX)
 
 vector<pair<int , int>> tree[N_MAX];
 int depth[N_MAX];
@@ -18,15 +19,12 @@ int LCA(int a, int b)
     int target = a;
     int compare = b;
 
-    int result = 0;
     if(depth[a] != depth[b])
     {
-        if(depth[a] < depth[b]) swap(a, b);
+        if(depth[target] < depth[compare]) swap(target, compare);
 
-        target = a;
-        compare = b;
-
-        for(int i=LOG_MAX; i>=0; i--)
+        int logN = floor(log2(depth[target]));
+        for(int i=logN; i>=0; i--)
         {
             if(depth[parent[target][i]] >= depth[compare])
             {
@@ -38,37 +36,32 @@ int LCA(int a, int b)
     int common = target;
     if(target != compare)
     {
-        for(int i=LOG_MAX; i>=0; i--)
+        int logN = floor(log2(depth[target]));
+        for(int i=logN; i>=0; i--)
         {
             if(parent[target][i] != parent[compare][i])
             {
                 target = parent[target][i];
-                compare = parent[target][i];
+                compare = parent[compare][i];
             }
             common = parent[target][i];
         }
     }
 
-    result = dist[a] + dist[b] - (2*dist[common]);
-
-
-    return result;
+    return common;
 }
 
 void init(int cur)
 {
-    for(int i=1; i<=LOG_MAX; i++)
-    {
-        parent[cur][i] = parent[parent[cur][i-1]][i-1];
-    }
+    // time out!!!
+    // for(int i=1; i<=LOG_MAX; i++)
+    // {
+    //     parent[cur][i] = parent[parent[cur][i-1]][i-1];
+    // }
 
     for(auto it = tree[cur].begin(); it!=tree[cur].end(); it++)
     {
-        if(parent[cur][0] == (*it).first)
-        {
-            //tree[cur].erase(it);
-            continue;
-        }
+        if(parent[cur][0] == (*it).first) it = tree[cur].erase(it);
         if(it == tree[cur].end()) break;
 
         int next = (*it).first;
@@ -86,9 +79,18 @@ int main()
     int N;
     scanf("%d", &N);
 
-    for(int i=0; i<=N; i++)
+    for(int i=0; i<N_MAX; i++)
     {
         depth[i] = -1;
+        dist[i] = 0;
+    }
+
+    for(int i=0; i<N_MAX; i++)
+    {
+        for(int j=0; j<LOG_MAX; j++)
+        {
+            parent[i][j] = 0;
+        }
     }
 
     for(int i=1; i<=N-1; i++)
@@ -102,8 +104,17 @@ int main()
         tree[b].push_back(temp1);
     }
 
+
     depth[1] = 0;
     init(1);
+
+    for(int k=1; k<LOG_MAX; k++)
+    {
+        for(int i=1; i<=N; i++)
+        {
+            parent[i][k] = parent[parent[i][k-1]][k-1];
+        }
+    }
 
     int M;
     scanf("%d", &M);
@@ -111,8 +122,9 @@ int main()
     {
         int a, b;
         scanf("%d %d", &a, &b);
-        int res = LCA(a, b);
-        printf("%d\n", res);
+        int common = LCA(a, b);
+        int result = dist[a] + dist[b] - (2*dist[common]);
+        printf("%d\n", result);
     }
 
     return 0;
