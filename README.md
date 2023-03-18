@@ -2,9 +2,10 @@
 
 ## 공지사항
  - 2023년 시작!
+ - 23.03.22(수) 벌금파티!
 
-## 이번주 문제 (~23.03.17)
- - 23.03.17 [친구 네트워크](https://www.acmicpc.net/problem/4195)
+## 이번주 문제 (~23.03.24)
+ - 벌금파티로 인한 휴강!
  
 ## 제출방법
 - 브랜치 생성 후 풀이한 코드를 Pull Request로 제출해주세요. (Main 브랜치에 바로 Push X)
@@ -52,6 +53,7 @@
 - 23.02.24 <a href=https://www.acmicpc.net/problem/1949> 우수 마을 </a>
 - 23.03.03 [카드 게임](https://www.acmicpc.net/problem/16566)
 - 23.03.10 [K번째 최단경로 찾기](https://www.acmicpc.net/problem/1854)
+- 23.03.17 [친구 네트워크](https://www.acmicpc.net/problem/4195)
 </details>
 
 
